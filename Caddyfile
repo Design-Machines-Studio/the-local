@@ -7,7 +7,7 @@
 thelocal.chat {
 	# Matrix server discovery
 	handle /.well-known/matrix/* {
-		root * /srv/well-known
+		root * /srv
 		file_server
 		header Content-Type application/json
 		header Access-Control-Allow-Origin *
