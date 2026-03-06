@@ -32,8 +32,14 @@ matrix.thelocal.chat {
 	}
 
 	# Synapse client-server + federation API
+	# 120s timeouts needed for Element X sliding sync long-polling
 	handle {
-		reverse_proxy synapse:8008
+		reverse_proxy synapse:8008 {
+			transport http {
+				read_timeout 120s
+				write_timeout 120s
+			}
+		}
 	}
 
 	request_body {
