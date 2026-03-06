@@ -1,0 +1,42 @@
+# ═══════════════════════════════════════════════════════════
+# The Local — Caddy reverse proxy
+# Handles TLS automatically via Let's Encrypt
+# ═══════════════════════════════════════════════════════════
+
+# ─── Root domain: Element Web + .well-known ──────────────
+thelocal.chat {
+	# Matrix server discovery
+	handle /.well-known/matrix/* {
+		root * /srv/well-known
+		file_server
+		header Content-Type application/json
+		header Access-Control-Allow-Origin *
+	}
+
+	# Element Web client (everything else)
+	handle {
+		reverse_proxy element:80
+	}
+}
+
+# ─── Matrix homeserver API + LiveKit ─────────────────────
+matrix.thelocal.chat {
+	# LiveKit JWT auth service
+	handle /livekit/jwt/* {
+		reverse_proxy jwt:8080
+	}
+
+	# LiveKit SFU WebSocket
+	handle /livekit/sfu/* {
+		reverse_proxy livekit:7880
+	}
+
+	# Synapse client-server + federation API
+	handle {
+		reverse_proxy synapse:8008
+	}
+
+	request_body {
+		max_size 50MB
+	}
+}

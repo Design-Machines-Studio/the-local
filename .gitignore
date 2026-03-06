@@ -1,0 +1,14 @@
+# Secrets
+.env
+homeserver.yaml.active
+livekit/livekit.yaml.active
+
+# Backups
+*.sql
+media-backup-*/
+
+# macOS
+.DS_Store
+
+# Tarball (delivery artifact, not part of repo)
+*.tar.gz

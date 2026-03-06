@@ -1,0 +1,119 @@
+# ═══════════════════════════════════════════════════════════
+# The Local — Synapse homeserver config
+# DM-019/WORKS · thelocal.chat
+#
+# TEMPLATE — setup.sh generates homeserver.yaml.active
+# Edit this file, then re-run setup.sh to regenerate.
+# ═══════════════════════════════════════════════════════════
+
+server_name: "thelocal.chat"
+public_baseurl: "https://matrix.thelocal.chat/"
+pid_file: /data/homeserver.pid
+web_client_location: "https://thelocal.chat/"
+
+# ─── Listeners ───────────────────────────────────────────
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    bind_addresses: ['0.0.0.0']
+    resources:
+      - names: [client, federation, openid]
+        compress: false
+
+# ─── Database ────────────────────────────────────────────
+database:
+  name: psycopg2
+  args:
+    user: synapse
+    password: "%%POSTGRES_PASSWORD%%"
+    database: synapse
+    host: postgres
+    port: 5432
+    cp_min: 5
+    cp_max: 10
+
+# ─── Logging ─────────────────────────────────────────────
+log_config: "/data/thelocal.chat.log.config"
+
+# ─── Media ───────────────────────────────────────────────
+media_store_path: /data/media_store
+max_upload_size: 50M
+url_preview_enabled: true
+url_preview_ip_range_blacklist:
+  - '127.0.0.0/8'
+  - '10.0.0.0/8'
+  - '172.16.0.0/12'
+  - '192.168.0.0/16'
+  - '100.64.0.0/10'
+  - '192.0.0.0/24'
+  - '169.254.0.0/16'
+  - '::1/128'
+  - 'fe80::/10'
+  - 'fc00::/7'
+  - '::ffff:0:0/96'
+
+# ─── Registration ────────────────────────────────────────
+enable_registration: false
+registration_shared_secret: "%%REGISTRATION_SECRET%%"
+
+# ─── Security ────────────────────────────────────────────
+macaroon_secret_key: "%%MACAROON_SECRET%%"
+form_secret: "%%FORM_SECRET%%"
+signing_key_path: "/data/thelocal.chat.signing.key"
+
+# ─── Federation ──────────────────────────────────────────
+# Disabled initially. To enable for Tier 2:
+#   1. Remove or comment out federation_domain_whitelist
+#   2. Restart: docker compose restart synapse
+federation_domain_whitelist: []
+
+trusted_key_servers:
+  - server_name: "matrix.org"
+
+# ─── MatrixRTC / Element Call ────────────────────────────
+# Required for video/voice calls via Element Call + LiveKit
+experimental_features:
+  msc3266_enabled: true
+  msc4222_enabled: true
+
+# Delayed events for call state management
+max_event_delay_duration: 24h
+
+# ─── Rate limiting ───────────────────────────────────────
+# Tuned for MatrixRTC key sharing (bursty during calls)
+rc_message:
+  per_second: 0.5
+  burst_count: 30
+
+rc_registration:
+  per_second: 0.17
+  burst_count: 3
+
+rc_login:
+  address:
+    per_second: 0.17
+    burst_count: 3
+  account:
+    per_second: 0.17
+    burst_count: 3
+
+rc_delayed_event_mgmt:
+  per_second: 1
+  burst_count: 20
+
+# ─── Room defaults ───────────────────────────────────────
+encryption_enabled_by_default_for_room_type: "off"
+
+# ─── Presence ────────────────────────────────────────────
+presence:
+  enabled: false
+
+# ─── Retention ───────────────────────────────────────────
+retention:
+  enabled: false
+
+# ─── Misc ────────────────────────────────────────────────
+suppress_key_server_warning: true
+report_stats: false

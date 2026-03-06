@@ -1,0 +1,118 @@
+version: "3.8"
+
+# ═══════════════════════════════════════════════════════════
+# The Local — DM-019/WORKS
+# thelocal.chat
+#
+# Services:
+#   caddy     — Reverse proxy + automatic TLS
+#   synapse   — Matrix homeserver
+#   postgres  — Database
+#   element   — Element Web client
+#   livekit   — SFU for video/voice calls
+#   jwt       — LiveKit JWT auth service
+# ═══════════════════════════════════════════════════════════
+
+services:
+  # ─── Reverse Proxy ─────────────────────────────────────
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./well-known:/srv/well-known:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - synapse
+      - element
+      - jwt
+    networks:
+      - thelocal
+
+  # ─── Matrix Homeserver ─────────────────────────────────
+  synapse:
+    image: matrixdotorg/synapse:latest
+    restart: unless-stopped
+    environment:
+      - SYNAPSE_CONFIG_PATH=/data/homeserver.yaml
+    volumes:
+      - synapse_data:/data
+      - ./homeserver.yaml.active:/data/homeserver.yaml:ro
+      - ./thelocal.chat.log.config:/data/thelocal.chat.log.config:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - thelocal
+
+  # ─── Database ──────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: synapse
+      POSTGRES_USER: synapse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U synapse"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - thelocal
+
+  # ─── Element Web Client ────────────────────────────────
+  element:
+    image: vectorim/element-web:latest
+    restart: unless-stopped
+    volumes:
+      - ./element-config.json:/app/config.json:ro
+    networks:
+      - thelocal
+
+  # ─── LiveKit SFU (video/voice calls) ──────────────────
+  livekit:
+    image: livekit/livekit-server:latest
+    restart: unless-stopped
+    command: --config /etc/livekit.yaml
+    ports:
+      - "7881:7881/tcp"
+      - "50100-50200:50100-50200/udp"
+    volumes:
+      - ./livekit/livekit.yaml.active:/etc/livekit.yaml:ro
+    networks:
+      - thelocal
+
+  # ─── LiveKit JWT Auth Service ──────────────────────────
+  jwt:
+    image: ghcr.io/element-hq/lk-jwt-service:latest
+    restart: unless-stopped
+    environment:
+      - LIVEKIT_JWT_BIND=:8080
+      - LIVEKIT_URL=wss://matrix.thelocal.chat/livekit/sfu
+      - LIVEKIT_KEY=${LIVEKIT_KEY}
+      - LIVEKIT_SECRET=${LIVEKIT_SECRET}
+      - LIVEKIT_FULL_ACCESS_HOMESERVERS=thelocal.chat
+    networks:
+      - thelocal
+
+volumes:
+  caddy_data:
+    name: thelocal_caddy_data
+  caddy_config:
+    name: thelocal_caddy_config
+  synapse_data:
+    name: thelocal_synapse_data
+  postgres_data:
+    name: thelocal_postgres_data
+
+networks:
+  thelocal:
+    name: thelocal

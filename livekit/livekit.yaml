@@ -1,0 +1,22 @@
+# ═══════════════════════════════════════════════════════════
+# The Local — LiveKit SFU config
+# Handles WebRTC media for Element Call video/voice
+#
+# TEMPLATE — setup.sh generates livekit/livekit.yaml.active
+# ═══════════════════════════════════════════════════════════
+
+port: 7880
+bind_addresses:
+  - "0.0.0.0"
+
+rtc:
+  tcp_port: 7881
+  port_range_start: 50100
+  port_range_end: 50200
+  use_external_ip: true
+
+keys:
+  %%LIVEKIT_KEY%%: %%LIVEKIT_SECRET%%
+
+logging:
+  level: warn
