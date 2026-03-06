@@ -70,7 +70,7 @@ sed \
   -e "s|%%MACAROON_SECRET%%|${MACAROON_SECRET}|g" \
   -e "s|%%FORM_SECRET%%|${FORM_SECRET}|g" \
   homeserver.yaml > homeserver.yaml.active
-chmod 600 homeserver.yaml.active
+chmod 644 homeserver.yaml.active
 echo "  ✓ homeserver.yaml.active"
 
 # LiveKit config
@@ -78,7 +78,7 @@ sed \
   -e "s|%%LIVEKIT_KEY%%|${LIVEKIT_KEY}|g" \
   -e "s|%%LIVEKIT_SECRET%%|${LIVEKIT_SECRET}|g" \
   livekit/livekit.yaml > livekit/livekit.yaml.active
-chmod 600 livekit/livekit.yaml.active
+chmod 644 livekit/livekit.yaml.active
 echo "  ✓ livekit/livekit.yaml.active"
 
 # ─── Step 3: Signing key ────────────────────────────────
