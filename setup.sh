@@ -49,6 +49,9 @@ MACAROON_SECRET=${MACAROON_SECRET}
 FORM_SECRET=${FORM_SECRET}
 LIVEKIT_KEY=${LIVEKIT_KEY}
 LIVEKIT_SECRET=${LIVEKIT_SECRET}
+
+# Email (Resend SMTP) — add your API key from https://resend.com/api-keys
+RESEND_API_KEY=REPLACE_ME
 EOF
 
   chmod 600 .env

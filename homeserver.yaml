@@ -118,6 +118,13 @@ retention:
 suppress_key_server_warning: true
 report_stats: false
 
+# ─── Performance tuning ──────────────────────────────────
+# Cache factor: lower = less RAM. Default 0.5, 0.3 for 2GB server.
+caches:
+  global_factor: 0.3
+
+federation_rr_transactions_per_room_per_second: 10
+
 # ─── Email (Resend SMTP) ────────────────────────────────
 email:
   smtp_host: smtp.resend.com
