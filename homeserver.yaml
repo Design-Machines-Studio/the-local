@@ -117,3 +117,14 @@ retention:
 # ─── Misc ────────────────────────────────────────────────
 suppress_key_server_warning: true
 report_stats: false
+
+# ─── Email (Resend SMTP) ────────────────────────────────
+email:
+  smtp_host: smtp.resend.com
+  smtp_port: 465
+  smtp_user: "resend"
+  smtp_pass: "%%RESEND_API_KEY%%"
+  require_transport_security: true
+  notif_from: "The Local <noreply@thelocal.chat>"
+  enable_notifs: true
+  

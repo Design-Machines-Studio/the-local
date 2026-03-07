@@ -69,6 +69,7 @@ sed \
   -e "s|%%REGISTRATION_SECRET%%|${REGISTRATION_SECRET}|g" \
   -e "s|%%MACAROON_SECRET%%|${MACAROON_SECRET}|g" \
   -e "s|%%FORM_SECRET%%|${FORM_SECRET}|g" \
+  -e "s|%%RESEND_API_KEY%%|${RESEND_API_KEY:-REPLACE_ME}|g" \
   homeserver.yaml > homeserver.yaml.active
 chmod 644 homeserver.yaml.active
 echo "  ✓ homeserver.yaml.active"
