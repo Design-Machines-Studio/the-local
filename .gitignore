@@ -12,3 +12,7 @@ media-backup-*/
 
 # Tarball (delivery artifact, not part of repo)
 *.tar.gz
+
+# AI
+CLAUDE.md
+.claude

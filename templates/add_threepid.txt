@@ -1,0 +1,7 @@
+Verify your email — The Local
+
+Someone requested to add this email address to a Local account. If this was you, click the link below to confirm:
+
+{{ link }}
+
+If this wasn't you, ignore this email.

@@ -55,7 +55,8 @@ url_preview_ip_range_blacklist:
   - '::ffff:0:0/96'
 
 # ─── Registration ────────────────────────────────────────
-enable_registration: false
+enable_registration: true
+registration_requires_token: true
 registration_shared_secret: "%%REGISTRATION_SECRET%%"
 
 # ─── Security ────────────────────────────────────────────
@@ -126,9 +127,10 @@ caches:
 federation_rr_transactions_per_room_per_second: 10
 
 # ─── Email (Resend SMTP) ────────────────────────────────
+template_dir: /data/templates
 email:
   smtp_host: smtp.resend.com
-  smtp_port: 465
+  smtp_port: 2587
   smtp_user: "resend"
   smtp_pass: "%%RESEND_API_KEY%%"
   require_transport_security: true

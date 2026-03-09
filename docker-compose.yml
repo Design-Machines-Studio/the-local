@@ -41,6 +41,7 @@ services:
       - synapse_data:/data
       - ./homeserver.yaml.active:/data/homeserver.yaml:ro
       - ./thelocal.chat.log.config:/data/thelocal.chat.log.config:ro
+      - ./templates:/data/templates:ro
     depends_on:
       postgres:
         condition: service_healthy
