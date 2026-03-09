@@ -13,6 +13,13 @@ thelocal.chat {
 		header Access-Control-Allow-Origin *
 	}
 
+	# Static assets (logos, images for emails)
+	handle /assets/* {
+		root * /srv
+		file_server
+		header Cache-Control "public, max-age=31536000"
+	}
+
 	# Element Web client (everything else)
 	handle {
 		reverse_proxy element:80

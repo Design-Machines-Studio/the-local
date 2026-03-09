@@ -22,6 +22,7 @@ services:
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ./well-known:/srv/.well-known:ro
+      - ./assets:/srv/assets:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
