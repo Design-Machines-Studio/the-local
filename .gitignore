@@ -17,6 +17,8 @@ media-backup-*/
 CLAUDE.md
 .claude
 .serena
+todos
 
 # Preview files
 templates/_preview*.html
+rendered/

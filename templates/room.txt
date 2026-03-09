@@ -1,0 +1,12 @@
+{{ room.title }}
+{%- if room.invite %}
+You've been invited. Join at: {{ room.link }}
+{%- else %}
+{%- for notif in room.notifs %}
+{%- for message in notif.messages %}
+{{ message.sender_name }}: {{ message.body_text_plain }}
+{%- endfor %}
+View: {{ notif.link }}
+{%- endfor %}
+{%- endif %}
+
