@@ -13,24 +13,22 @@
 
         html, body {
             height: 100%;
+            background: transparent;
         }
 
         body {
-            background: #220D46;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #F9F5F0;
+            color: #220D46;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 2.5rem 2.25rem;
-            min-height: 100vh;
+            padding: 2.25rem 2rem;
+            min-height: 100%;
         }
 
         .logo {
-            width: 180px;
+            width: 160px;
             height: auto;
-            /* Invert the logo to show light on dark background */
-            filter: brightness(0) invert(1);
         }
 
         .main {
@@ -38,61 +36,62 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 3rem 0 2rem;
+            padding: 2rem 0 1.5rem;
         }
 
         .eyebrow {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: #ed1d26;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
         }
 
         h1 {
-            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-size: clamp(1.25rem, 3.5vw, 1.75rem);
             font-weight: 700;
             line-height: 1.2;
-            color: #F9F5F0;
-            margin-bottom: 1.25rem;
+            color: #220D46;
+            margin-bottom: 1rem;
             letter-spacing: -0.01em;
-        }
-
-        p {
-            font-size: 15px;
-            line-height: 1.65;
-            color: rgba(249, 245, 240, 0.7);
-            max-width: 36ch;
         }
 
         .divider {
             width: 2rem;
             height: 2px;
             background: #ed1d26;
-            margin: 2rem 0;
+            margin: 1.25rem 0;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.65;
+            color: #5a4a7a;
+            max-width: 34ch;
         }
 
         .access {
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(249, 245, 240, 0.5);
+            margin-top: 1.25rem;
+            font-size: 11px;
+            font-weight: 700;
+            color: #8a8299;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.08em;
         }
 
         .footer {
-            font-size: 12px;
-            color: rgba(249, 245, 240, 0.3);
+            font-size: 11px;
+            color: #c0bac8;
         }
 
         .footer a {
-            color: rgba(249, 245, 240, 0.4);
+            color: #c0bac8;
             text-decoration: none;
         }
 
         .footer a:hover {
-            color: rgba(249, 245, 240, 0.7);
+            color: #8a8299;
         }
     </style>
 </head>
@@ -100,11 +99,10 @@
     <img src="/assets/the-local-logo.png" alt="The Local" class="logo" />
 
     <div class="main">
-        <div class="eyebrow">Matrix · Federated · Self-hosted</div>
+        <div class="eyebrow">Matrix &middot; Federated &middot; Self-hosted</div>
         <h1>Communications for the workplace democracy movement.</h1>
         <div class="divider"></div>
         <p>The Local connects co-operatives, organizers, and movement builders on a private network built on open standards.</p>
-        <br>
         <p class="access">Membership by invitation</p>
     </div>
 
