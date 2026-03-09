@@ -74,6 +74,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./element-config.json:/app/config.json:ro
+      - ./welcome/index.html:/app/welcome.html:ro
     networks:
       - thelocal
 
