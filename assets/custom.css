@@ -1,0 +1,12 @@
+/* The Local — Element Web custom styles */
+
+/* Remove the default lake.jpg background from the auth/welcome screen */
+.mx_AuthPage {
+    background-image: none !important;
+    background-color: #220D46 !important;
+}
+
+/* Remove the Element/Matrix/Blog footer on auth pages */
+.mx_AuthPage .mx_AuthFooter {
+    display: none !important;
+}
