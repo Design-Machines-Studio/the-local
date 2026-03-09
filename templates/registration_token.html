@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+{% block title %}Registration token — The Local{% endblock %}
+
+{% block body %}
+{% if error is defined %}
+<p class="error"><strong>{{ error }}</strong></p>
+{% endif %}
+<p>Enter your registration token to continue.</p>
+<form method="post" action="{{ myurl }}" style="margin: 0 0 1.25rem 0;">
+    <input type="hidden" name="session" value="{{ session }}" />
+    <input type="text" name="token" placeholder="Registration token" style="display: block; width: 100%; box-sizing: border-box; padding: 0.65rem 0.9rem; font-size: 16px; font-family: inherit; border: 1.5px solid #ccc4bd; border-radius: 3px; color: #220D46; background: #fff; margin-bottom: 0.85rem;" />
+    <button type="submit" style="display: inline-block; font-size: 15px; font-weight: 700; font-family: inherit; color: #F9F5F0; background: #220D46; padding: 0.75rem 1.75rem; border: none; border-radius: 3px; cursor: pointer; letter-spacing: 0.01em;">Continue</button>
+</form>
+{% endblock %}

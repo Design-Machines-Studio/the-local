@@ -1,0 +1,7 @@
+{% extends "_base.html" %}
+{% block title %}Registration failed — The Local{% endblock %}
+
+{% block body %}
+<p class="error">{{ failure_reason }}</p>
+<p>Registration could not be completed. <a href="https://thelocal.chat">Return to The Local</a> to try again.</p>
+{% endblock %}

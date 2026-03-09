@@ -1,0 +1,25 @@
+{%- for message in notif.messages %}
+<div style="margin-bottom: 0.75rem;">
+    {%- if loop.index0 == 0 or notif.messages[loop.index0 - 1].sender_name != message.sender_name %}
+    <div style="font-size: 13px; font-weight: 700; color: #220D46; margin-bottom: 0.2rem;">{{ message.sender_name }}</div>
+    {%- endif %}
+    <div style="font-size: 15px; line-height: 1.5; color: #220D46;">
+        {%- if message.event_type == "m.room.encrypted" %}
+            <em style="color: #8a8299;">Encrypted message</em>
+        {%- elif message.event_type == "m.room.message" %}
+            {%- if message.msgtype in ["m.text", "m.emote", "m.notice"] %}
+                {{ message.body_text_html }}
+            {%- elif message.msgtype == "m.image" and message.image_url %}
+                <img src="{{ message.image_url|mxc_to_http(480, 360, 'scale') }}" alt="Image" style="max-width: 100%; border-radius: 3px; display: block; margin-top: 0.4rem;" />
+            {%- elif message.msgtype == "m.file" %}
+                <em style="color: #8a8299;">File: {{ message.body_text_plain }}</em>
+            {%- else %}
+                <em style="color: #8a8299;">Message</em>
+            {%- endif %}
+        {%- endif %}
+    </div>
+</div>
+{%- endfor %}
+<div style="margin-top: 0.75rem; margin-bottom: 0.5rem; font-size: 14px;">
+    <a href="{{ notif.link }}" style="color: #ed1d26;">View in The Local</a>
+</div>

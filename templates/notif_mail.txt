@@ -1,0 +1,9 @@
+Hi {{ user_display_name }},
+
+{{ summary_text }}
+
+{%- for room in rooms %}
+{%- include 'room.txt' with context %}
+{%- endfor %}
+
+To unsubscribe from these notifications: {{ unsubscribe_link }}

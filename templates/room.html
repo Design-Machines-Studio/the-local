@@ -1,0 +1,10 @@
+<div style="margin: 1.5rem 0; padding-top: 1rem; border-top: 1px solid #e0dbd3;">
+    <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #8a8299; margin-bottom: 0.75rem;">{{ room.title }}</div>
+    {%- if room.invite %}
+        <p><a href="{{ room.link }}" style="color: #ed1d26;">You've been invited — join the conversation.</a></p>
+    {%- else %}
+        {%- for notif in room.notifs %}
+            {%- include 'notif.html' with context %}
+        {%- endfor %}
+    {%- endif %}
+</div>

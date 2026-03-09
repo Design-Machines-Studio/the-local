@@ -1,0 +1,9 @@
+Confirm your email — The Local
+
+Thanks for joining The Local. Confirm your email address to complete registration:
+
+{{ link }}
+
+If you didn't create an account, ignore this email.
+
+— The Local · thelocal.chat
