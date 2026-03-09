@@ -11,10 +11,4 @@
 
 <p style="margin-top: 1.5rem; font-size: 14px; color: #8a8299;"><a href="{{ unsubscribe_link }}" style="color: #8a8299;">Unsubscribe from these emails</a></p>
 
-<!--
-  Debug: sent {{ reason.now|format_ts("%c") }} for {{ reason.room_name }}
-  received {{ reason.received_at|format_ts("%c") }},
-  delay {{ "%.1f"|format(reason.delay_before_mail_ms / (60*1000)) }}min
-  {%- if reason.last_sent_ts %}, last sent {{ reason.last_sent_ts|format_ts("%c") }}, throttle {{ "%.1f"|format(reason.throttle_ms / (60*1000)) }}min{%- endif %}
--->
 {% endblock %}

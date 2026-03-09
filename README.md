@@ -160,6 +160,7 @@ sed -e "s|%%POSTGRES_PASSWORD%%|${POSTGRES_PASSWORD}|g" \
     -e "s|%%REGISTRATION_SECRET%%|${REGISTRATION_SECRET}|g" \
     -e "s|%%MACAROON_SECRET%%|${MACAROON_SECRET}|g" \
     -e "s|%%FORM_SECRET%%|${FORM_SECRET}|g" \
+    -e "s|%%RESEND_API_KEY%%|${RESEND_API_KEY}|g" \
     homeserver.yaml > homeserver.yaml.active
 docker compose restart synapse
 
@@ -192,6 +193,7 @@ docker compose exec synapse register_new_matrix_user \
 | `well-known/matrix/client` | Client discovery + LiveKit | ✅ |
 | `thelocal.chat.log.config` | Logging config | ✅ |
 | `setup.sh` | First-time setup | ✅ |
+| `templates/` | Branded Synapse email + web page templates (overrides Synapse defaults) | ✅ |
 | `.env` | All secrets | ❌ |
 
 ---
@@ -211,7 +213,7 @@ Ensure all four are open in DO's firewall and the droplet's UFW.
 
 ## Security
 
-- Registration **disabled** — accounts via CLI only
+- Registration **token-gated** — accounts created via CLI or shared registration tokens
 - Federation **disabled** — enable when ready for Tier 2
 - E2EE **off by default** — enable per-room for sensitive topics
 - Presence **disabled** — saves resources

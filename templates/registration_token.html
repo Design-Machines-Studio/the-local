@@ -5,10 +5,12 @@
 {% if error is defined %}
 <p class="error"><strong>{{ error }}</strong></p>
 {% endif %}
-<p>Enter your registration token to continue.</p>
+<h1>Enter your registration token</h1>
+<p>You'll need a token to create an account on The Local.</p>
 <form method="post" action="{{ myurl }}" style="margin: 0 0 1.25rem 0;">
     <input type="hidden" name="session" value="{{ session }}" />
-    <input type="text" name="token" placeholder="Registration token" style="display: block; width: 100%; box-sizing: border-box; padding: 0.65rem 0.9rem; font-size: 16px; font-family: inherit; border: 1.5px solid #ccc4bd; border-radius: 3px; color: #220D46; background: #fff; margin-bottom: 0.85rem;" />
-    <button type="submit" style="display: inline-block; font-size: 15px; font-weight: 700; font-family: inherit; color: #F9F5F0; background: #220D46; padding: 0.75rem 1.75rem; border: none; border-radius: 3px; cursor: pointer; letter-spacing: 0.01em;">Continue</button>
+    <label for="token" style="display: block; font-size: 15px; font-weight: 600; color: #220D46; margin-bottom: 0.4rem;">Registration token</label>
+    <input type="text" id="token" name="token" class="input" autocomplete="one-time-code" />
+    <button type="submit" class="btn">Continue</button>
 </form>
 {% endblock %}
