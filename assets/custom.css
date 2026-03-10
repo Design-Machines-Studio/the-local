@@ -27,3 +27,139 @@
 .mx_AuthPage .mx_AuthFooter {
     display: none !important;
 }
+
+/* ═══════════════════════════════════════════════
+   Welcome Page (/#/welcome) - The Local branding
+   ═══════════════════════════════════════════════ */
+
+/* Brand purple background behind the card */
+.mx_Welcome {
+    background: #220D46 !important;
+}
+
+/* The card */
+.mx_WelcomePage {
+    background: #F9F5F0 !important;
+    border-radius: 12px !important;
+    padding: 2.5rem !important;
+    max-width: 440px !important;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Left-align the card contents */
+.mx_WelcomePage .mx_Parent {
+    padding: 0 !important;
+    text-align: left !important;
+    align-items: flex-start !important;
+}
+
+/* Hide default Element/Matrix logos */
+.mx_WelcomePage .mx_Logo,
+.mx_WelcomePage .mx_WelcomePage_logo {
+    display: none !important;
+}
+
+/* Replace Element logo link with The Local logo */
+.mx_WelcomePage .mx_Parent > a:first-of-type {
+    display: block !important;
+    width: 148px !important;
+    height: 40px !important;
+    margin-bottom: 1.5rem !important;
+    background: url('/assets/the-local-logo.png') no-repeat left center !important;
+    background-size: contain !important;
+    pointer-events: none !important;
+}
+
+/* Replace "Welcome to Element!" heading text */
+.mx_WelcomePage .mx_Header_title {
+    font-size: 0 !important;
+    margin: 0 0 0.25rem !important;
+}
+.mx_WelcomePage .mx_Header_title::after {
+    content: '' !important;
+    display: block !important;
+    width: 2rem !important;
+    height: 2px !important;
+    background: #ed1d26 !important;
+    margin-top: 1.25rem !important;
+}
+.mx_WelcomePage .mx_Header_title::before {
+    content: "Communications for the workplace democracy movement.";
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #220D46 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.01em !important;
+    display: block !important;
+}
+
+/* Hide "Decentralised... powered by Matrix" subtitle */
+.mx_WelcomePage .mx_Header_subtitle {
+    display: none !important;
+}
+
+/* Description copy before buttons */
+.mx_WelcomePage .mx_ButtonGroup::before {
+    content: "The Local connects co-operatives, organizers, and movement builders on a private network built on open standards.";
+    display: block;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #5a4a7a;
+    margin-bottom: 1.5rem;
+}
+
+/* Sign in button - brand purple, full-width */
+.mx_WelcomePage .mx_ButtonSignIn {
+    background: #220D46 !important;
+    color: #F9F5F0 !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    display: flex !important;
+    padding: 0.85rem 1.5rem !important;
+    justify-content: center !important;
+    background-image: none !important;
+    box-sizing: border-box !important;
+}
+.mx_WelcomePage .mx_ButtonSignIn .mx_ButtonLabel {
+    margin-left: 0 !important;
+    color: #F9F5F0 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+
+/* Make the button row block (not flex side-by-side) */
+.mx_WelcomePage .mx_ButtonRow {
+    display: block !important;
+    margin: 0 !important;
+}
+
+/* Style Create Account button - outlined */
+.mx_WelcomePage .mx_ButtonCreateAccount {
+    background: transparent !important;
+    color: #220D46 !important;
+    border: 2px solid #220D46 !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    display: flex !important;
+    padding: 0.85rem 1.5rem !important;
+    justify-content: center !important;
+    background-image: none !important;
+    box-sizing: border-box !important;
+    margin-top: 0.75rem !important;
+}
+.mx_WelcomePage .mx_ButtonCreateAccount .mx_ButtonLabel {
+    margin-left: 0 !important;
+    color: #220D46 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+
+/* Hide Explore rooms (guest function) */
+.mx_WelcomePage .mx_WelcomePage_guestFunctions {
+    display: none !important;
+}
+
+/* Hide language dropdown */
+.mx_AuthBody_language {
+    display: none !important;
+}
