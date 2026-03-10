@@ -185,11 +185,20 @@
 /* Submit buttons - full styling to match welcome page sign-in button */
 .mx_Login_submit,
 .mx_Register_submit {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    /* Override Element's font shorthand (cpd-font-body-md-regular) */
+    font: unset !important;
+    font-family: inherit !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 1.5 !important;
+    /* Override Element's fixed height: 32px from mx_DialogButton */
+    height: auto !important;
+    min-height: 0 !important;
     border-radius: 8px !important;
     background: #220D46 !important;
     color: #F9F5F0 !important;
-    font-size: 14px !important;
-    font-weight: 700 !important;
     padding: 0.85rem 1.5rem !important;
     letter-spacing: 0.01em !important;
     text-align: center !important;
@@ -198,7 +207,7 @@
     border: none !important;
     display: block !important;
     box-sizing: border-box !important;
-    line-height: 1.5 !important;
+    margin-bottom: 1rem !important;
 }
 
 .mx_Login_submit:hover,

@@ -6,7 +6,7 @@
     }
   },
   "brand": "The Local",
-  "welcomePageUrl": "welcome.html",
+  "welcomePageUrl": "welcome.html?v=2",
   "disable_custom_urls": true,
   "disable_guests": true,
   "disable_3pid_login": true,
