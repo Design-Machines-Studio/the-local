@@ -6,8 +6,6 @@
     }
   },
   "brand": "The Local",
-  "welcomePageUrl": "welcome.html",
-  "custom_css_url": "https://thelocal.chat/assets/custom.css",
   "disable_custom_urls": true,
   "disable_guests": true,
   "disable_3pid_login": true,
