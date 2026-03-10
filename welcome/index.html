@@ -2,36 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Local</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        /*
+         * NOTE: This file is injected inline into Element Web (not an iframe).
+         * All CSS here applies globally to thelocal.chat. Never use bare
+         * selectors (body, h1, *, etc.) -- scope everything to .tlw.
+         */
 
-        html, body {
-            height: 100%;
-            background: transparent;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #220D46;
+        .tlw {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             padding: 2.25rem 2rem;
-            min-height: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #220D46;
         }
 
-        .logo {
+        .tlw .logo {
             width: 148px;
             height: auto;
+            display: block;
         }
 
-        .main {
+        .tlw .main {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -39,7 +35,7 @@
             padding: 2rem 0 1.5rem;
         }
 
-        .eyebrow {
+        .tlw .eyebrow {
             font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
@@ -48,7 +44,7 @@
             margin-bottom: 1rem;
         }
 
-        h1 {
+        .tlw .heading {
             font-size: clamp(1.25rem, 3.5vw, 1.75rem);
             font-weight: 700;
             line-height: 1.2;
@@ -57,21 +53,21 @@
             letter-spacing: -0.01em;
         }
 
-        .divider {
+        .tlw .divider {
             width: 2rem;
             height: 2px;
             background: #ed1d26;
             margin: 1.25rem 0;
         }
 
-        p {
+        .tlw .desc {
             font-size: 14px;
             line-height: 1.65;
             color: #5a4a7a;
             max-width: 34ch;
         }
 
-        .access {
+        .tlw .access {
             margin-top: 1.25rem;
             font-size: 11px;
             font-weight: 700;
@@ -80,74 +76,92 @@
             letter-spacing: 0.08em;
         }
 
-        .signin {
-            display: block;
+        .tlw .button-row {
+            display: flex;
+            gap: 0.75rem;
             margin-top: 2rem;
+        }
+
+        .tlw .btn-primary,
+        .tlw .btn-primary:visited,
+        .tlw .btn-primary:focus {
+            flex: 1;
+            display: block;
+            padding: 0.85rem 1.25rem;
             font-size: 14px;
             font-weight: 700;
             color: #F9F5F0 !important;
             background: #220D46;
-            padding: 0.85rem 1.5rem;
-            text-decoration: none !important;
             border-radius: 8px;
-            letter-spacing: 0.01em;
-            text-align: center;
-        }
-
-        .signin:hover,
-        .signin:visited,
-        .signin:focus {
-            color: #F9F5F0 !important;
-            background: #2d1060;
             text-decoration: none !important;
+            text-align: center;
+            letter-spacing: 0.01em;
+            box-sizing: border-box;
         }
 
-        .footer {
+        .tlw .btn-primary:hover {
+            background: #2d1060;
+            color: #F9F5F0 !important;
+        }
+
+        .tlw .btn-outline,
+        .tlw .btn-outline:visited,
+        .tlw .btn-outline:focus {
+            flex: 1;
+            display: block;
+            padding: calc(0.85rem - 2px) 1.25rem;
+            font-size: 14px;
+            font-weight: 700;
+            color: #220D46 !important;
+            background: transparent;
+            border: 2px solid #220D46;
+            border-radius: 8px;
+            text-decoration: none !important;
+            text-align: center;
+            letter-spacing: 0.01em;
+            box-sizing: border-box;
+        }
+
+        .tlw .btn-outline:hover {
+            background: rgba(34, 13, 70, 0.06);
+            color: #220D46 !important;
+        }
+
+        .tlw .footer {
             font-size: 11px;
             color: #c0bac8;
         }
 
-        .footer a {
-            color: #c0bac8;
-            text-decoration: none;
+        .tlw .footer a,
+        .tlw .footer a:visited {
+            color: #c0bac8 !important;
+            text-decoration: none !important;
         }
 
-        .footer a:hover {
-            color: #8a8299;
-        }
-
-        /* Override Element's default lake.jpg background */
-        .mx_AuthPage {
-            background: #220D46 !important;
-        }
-
-        /* Replace blurred lake.jpg with clean white card */
-        .mx_AuthPage_modalBlur {
-            background: rgba(249, 245, 240, 0.96) !important;
-            filter: none !important;
-        }
-
-        /* Hide the Element/Matrix footer links */
-        .mx_AuthPage .mx_AuthFooter {
-            display: none !important;
+        .tlw .footer a:hover {
+            color: #8a8299 !important;
         }
     </style>
 </head>
 <body>
-    <img src="/assets/the-local-logo.png" alt="The Local" class="logo" />
+    <div class="tlw">
+        <img src="/assets/the-local-logo.png" alt="The Local" class="logo" />
 
-    <div class="main">
-        <div class="eyebrow">Federated &middot; Self-hosted &middot; Encrypted</div>
-        <h1>Communications for the workplace democracy movement.</h1>
-        <div class="divider"></div>
-        <p>The Local connects co-operatives, organizers, and movement builders on a private network built on open standards.</p>
-        <p class="access">Membership by invitation</p>
-        <a href="/#/login" target="_top" class="signin">Sign in</a>
+        <div class="main">
+            <div class="eyebrow">Federated &middot; Self-hosted &middot; Encrypted</div>
+            <div class="heading">Communications for the workplace democracy movement.</div>
+            <div class="divider"></div>
+            <p class="desc">The Local connects co-operatives, organizers, and movement builders on a private network built on open standards.</p>
+            <p class="access">Membership by invitation</p>
+            <div class="button-row">
+                <a href="/#/login" target="_top" class="btn-primary">Sign in</a>
+                <a href="/#/register" target="_top" class="btn-outline">Create account</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="https://designmachines.studio">Design Machines</a>
+        </div>
     </div>
-
-    <div class="footer">
-        <a href="https://designmachines.studio">Design Machines</a>
-    </div>
-
 </body>
 </html>

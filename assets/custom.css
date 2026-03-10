@@ -37,13 +37,14 @@
     background: #220D46 !important;
 }
 
-/* The card */
+/* The card wrapper -- padding handled by .tlw inside welcome.html */
 .mx_WelcomePage {
     background: #F9F5F0 !important;
     border-radius: 24px !important;
-    padding: 2.5rem !important;
+    padding: 0 !important;
     max-width: 440px !important;
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2) !important;
+    overflow: hidden !important;
 }
 
 /* Left-align the card contents */
