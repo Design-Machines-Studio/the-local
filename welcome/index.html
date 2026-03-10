@@ -85,17 +85,21 @@
             margin-top: 2rem;
             font-size: 14px;
             font-weight: 700;
-            color: #F9F5F0;
+            color: #F9F5F0 !important;
             background: #220D46;
             padding: 0.85rem 1.5rem;
-            text-decoration: none;
+            text-decoration: none !important;
             border-radius: 8px;
             letter-spacing: 0.01em;
             text-align: center;
         }
 
-        .signin:hover {
+        .signin:hover,
+        .signin:visited,
+        .signin:focus {
+            color: #F9F5F0 !important;
             background: #2d1060;
+            text-decoration: none !important;
         }
 
         .footer {
