@@ -40,7 +40,7 @@
 /* The card */
 .mx_WelcomePage {
     background: #F9F5F0 !important;
-    border-radius: 12px !important;
+    border-radius: 24px !important;
     padding: 2.5rem !important;
     max-width: 440px !important;
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2) !important;
@@ -165,4 +165,54 @@
 /* Hide language dropdown */
 .mx_AuthBody_language {
     display: none !important;
+}
+
+/* ═══════════════════════════════════════════════
+   Auth Pages (/#/login, /#/register) - consistency
+   ═══════════════════════════════════════════════ */
+
+/* Auth modal card - explicit rounded corners */
+.mx_AuthPage_modal {
+    border-radius: 24px !important;
+    overflow: hidden !important;
+}
+
+/* Right panel - warm white to match welcome card */
+.mx_AuthPage_modalContent {
+    background: #F9F5F0 !important;
+}
+
+/* Submit buttons - full styling to match welcome page sign-in button */
+.mx_Login_submit,
+.mx_Register_submit {
+    border-radius: 8px !important;
+    background: #220D46 !important;
+    color: #F9F5F0 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    padding: 0.85rem 1.5rem !important;
+    letter-spacing: 0.01em !important;
+    text-align: center !important;
+    width: 100% !important;
+    cursor: pointer !important;
+    border: none !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    line-height: 1.5 !important;
+}
+
+.mx_Login_submit:hover,
+.mx_Register_submit:hover {
+    background: #2d1060 !important;
+}
+
+/* Secondary links - brand color instead of default blue */
+.mx_AuthBody a,
+.mx_Login_forgot,
+.mx_AuthBody .mx_AccessibleButton_kind_link {
+    color: #220D46 !important;
+}
+.mx_AuthBody a:hover,
+.mx_Login_forgot:hover {
+    color: #ed1d26 !important;
 }
