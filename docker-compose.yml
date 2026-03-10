@@ -75,6 +75,7 @@ services:
     volumes:
       - ./element-config.json:/app/config.json:ro
       - ./assets/index.html:/app/index.html:ro
+      - ./welcome/index.html:/app/welcome.html:ro
     networks:
       - thelocal
 
