@@ -1,0 +1,121 @@
+[      53ms] ReferenceError: Cannot access 'B' before initialization
+    at Object.J (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:60025)
+    at y.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1251276)
+    at get instance (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1367248)
+    at ./src/stores/widgets/WidgetLayoutStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1375278)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/utils/WidgetUtils.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1473007)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/ActiveWidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1225742)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/WidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1255804)
+[      57ms] ReferenceError: Cannot access 'B' before initialization
+    at Object.J (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:60025)
+    at l.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1251276)
+    at d.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1229200)
+    at https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1418196
+    at ./src/stores/widgets/WidgetMessagingStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1418207)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/ActiveWidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1225776)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/WidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1255804)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+[      57ms] ReferenceError: Cannot access 'B' before initialization
+    at Object.J (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:60025)
+    at l.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1251276)
+    at h.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1229200)
+    at https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1259004
+    at ./src/stores/WidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1259015)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/modules/ModuleRunner.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1108746)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/SecurityManager.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:117170)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+[     409ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://thelocal.chat/config.thelocal.chat.json?cachebuster=1773106917154:0
+[     410ms] [WARNING] No bug report endpoint set - logs will not be persisted @ https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:0
+[    2330ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_metadata:0
+[    2707ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_issuer:0
+[    2742ms] [WARNING] Recording already started for: mx_PageChange @ https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:0
+[    3876ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_metadata:0
+[    4254ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_issuer:0
+[ 1189067ms] ReferenceError: Cannot access 'B' before initialization
+    at Object.J (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:60025)
+    at y.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1251276)
+    at get instance (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1367248)
+    at ./src/stores/widgets/WidgetLayoutStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1375278)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/utils/WidgetUtils.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1473007)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/ActiveWidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1225742)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/WidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1255804)
+[ 1189071ms] ReferenceError: Cannot access 'B' before initialization
+    at Object.J (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:60025)
+    at l.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1251276)
+    at d.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1229200)
+    at https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1418196
+    at ./src/stores/widgets/WidgetMessagingStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1418207)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/ActiveWidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1225776)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/WidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1255804)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+[ 1189072ms] ReferenceError: Cannot access 'B' before initialization
+    at Object.J (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:60025)
+    at l.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1251276)
+    at h.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1229200)
+    at https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1259004
+    at ./src/stores/WidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1259015)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/modules/ModuleRunner.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1108746)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/SecurityManager.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:117170)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+[ 1189420ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://thelocal.chat/config.thelocal.chat.json?cachebuster=1773108106161:0
+[ 1189424ms] [WARNING] No bug report endpoint set - logs will not be persisted @ https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:0
+[ 1191691ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_metadata:0
+[ 1192065ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_issuer:0
+[ 1192089ms] [WARNING] Recording already started for: mx_PageChange @ https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:0
+[ 1193243ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_metadata:0
+[ 1193617ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_issuer:0
+[ 2158204ms] ReferenceError: Cannot access 'B' before initialization
+    at Object.J (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:60025)
+    at y.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1251276)
+    at get instance (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1367248)
+    at ./src/stores/widgets/WidgetLayoutStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1375278)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/utils/WidgetUtils.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1473007)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/ActiveWidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1225742)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/WidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1255804)
+[ 2158205ms] ReferenceError: Cannot access 'B' before initialization
+    at Object.J (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:60025)
+    at l.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1251276)
+    at d.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1229200)
+    at https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1418196
+    at ./src/stores/widgets/WidgetMessagingStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1418207)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/ActiveWidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1225776)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/stores/WidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1255804)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+[ 2158205ms] ReferenceError: Cannot access 'B' before initialization
+    at Object.J (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:60025)
+    at l.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1251276)
+    at h.start (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1229200)
+    at https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1259004
+    at ./src/stores/WidgetStore.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1259015)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/modules/ModuleRunner.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:1108746)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+    at ./src/SecurityManager.ts (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:1:117170)
+    at l (https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/bundle.js:2:31713)
+[ 2158554ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://thelocal.chat/config.thelocal.chat.json?cachebuster=1773109075305:0
+[ 2158559ms] [WARNING] No bug report endpoint set - logs will not be persisted @ https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:0
+[ 2160684ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_metadata:0
+[ 2161050ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_issuer:0
+[ 2161085ms] [WARNING] Recording already started for: mx_PageChange @ https://thelocal.chat/bundles/24cca2cf28e88e9fb7a0/init.js:0
+[ 2162197ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_metadata:0
+[ 2162565ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://matrix.thelocal.chat/_matrix/client/unstable/org.matrix.msc2965/auth_issuer:0
+[ 3181884ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://thelocal.chat/favicon.ico:0

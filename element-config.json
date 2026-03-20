@@ -23,7 +23,13 @@
     "participant_limit": 8,
     "brand": "Element Call"
   },
-  "map_style_url": null,
-  "bug_report_endpoint_url": null,
-  "show_labs_settings": false
+  "show_labs_settings": false,
+  "force_verification": false,
+  "setting_defaults": {
+    "UIFeature.identityServer": false,
+    "UIFeature.thirdPartyId": false,
+    "showChatEffects": false,
+    "FTUE.useCaseSelection": null,
+    "e2ee.manuallyVerifyAllSessions": false
+  }
 }
