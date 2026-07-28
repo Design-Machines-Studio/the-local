@@ -163,7 +163,9 @@ The Callback URL must match `oauth.redirect_uri` in `hookshot/config.yml` **char
 
 **Repository permissions:** Actions (read), Contents (read), Discussions (read & write), Issues (read & write), Metadata (read), Projects (read & write), Pull requests (read & write)
 
-**Organization permissions:** Team Discussions (read & write)
+**Organization permissions:** none needed.
+
+Hookshot's upstream docs ask for Team Discussions (read & write). GitHub [retired Team Discussions](https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/) in favour of Organization Discussions, so that permission no longer appears on the App form. Skip it. The Repository-level "Discussions" permission above is a different thing and is still required.
 
 **Subscribe to events:** commit comment, create, delete, discussion, discussion comment, issue comment, issues, project, project card, project column, pull request, pull request review, pull request review comment, push, release, repository, workflow run
 
