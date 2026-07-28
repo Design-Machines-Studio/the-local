@@ -46,6 +46,12 @@ listeners:
 # Webhook URL:  https://matrix.thelocal.chat/github/webhook
 # Callback URL: https://matrix.thelocal.chat/oauth
 #               (must match oauth.redirect_uri exactly)
+#
+# setup.sh STRIPS everything between the markers below when
+# GITHUB_APP_ID is still REPLACE_ME or github-key.pem is absent —
+# hookshot would otherwise crash-loop on a missing private key.
+# Feeds and generic webhooks keep working in the meantime.
+# %%GITHUB_BEGIN%%
 github:
   auth:
     id: "%%GITHUB_APP_ID%%"
@@ -58,6 +64,7 @@ github:
     redirect_uri: "https://matrix.thelocal.chat/oauth"
   defaultOptions:
     showIssueRoomLink: false
+# %%GITHUB_END%%
 
 # ─── Generic webhooks ────────────────────────────────────
 # Catch-all inbound endpoint. Assembly's Go governance bridges

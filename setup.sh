@@ -113,7 +113,18 @@ if [ ! -f "hookshot/passkey.pem" ]; then
   echo "  ✓ hookshot/passkey.pem (generated)"
 fi
 
-# Hookshot bridge config
+# Hookshot bridge config.
+# The github block is stripped until the App exists — hookshot exits on a
+# missing private key, and a crash-looping bridge takes feeds and generic
+# webhooks down with it.
+if [ "${GITHUB_APP_ID:-REPLACE_ME}" = "REPLACE_ME" ] || [ ! -f "hookshot/github-key.pem" ]; then
+  HOOKSHOT_GITHUB_FILTER='/%%GITHUB_BEGIN%%/{skip=1; next} /%%GITHUB_END%%/{skip=0; next} skip{next} {print}'
+  echo "  ⚠ GitHub not configured — hookshot will run without it"
+  echo "    (feeds + generic webhooks still work; see README)"
+else
+  HOOKSHOT_GITHUB_FILTER='/%%GITHUB_BEGIN%%|%%GITHUB_END%%/{next} {print}'
+fi
+
 sed \
   -e "s|%%GITHUB_APP_ID%%|${GITHUB_APP_ID:-REPLACE_ME}|g" \
   -e "s|%%GITHUB_WEBHOOK_SECRET%%|${GITHUB_WEBHOOK_SECRET:-REPLACE_ME}|g" \
@@ -122,7 +133,7 @@ sed \
   -e "s|%%FIGMA_TEAM_ID%%|${FIGMA_TEAM_ID:-REPLACE_ME}|g" \
   -e "s|%%FIGMA_ACCESS_TOKEN%%|${FIGMA_ACCESS_TOKEN:-REPLACE_ME}|g" \
   -e "s|%%FIGMA_PASSCODE%%|${FIGMA_PASSCODE:-REPLACE_ME}|g" \
-  hookshot/config.yml > hookshot/config.yml.active
+  hookshot/config.yml | awk "$HOOKSHOT_GITHUB_FILTER" > hookshot/config.yml.active
 # 600: read only by hookshot, which runs as root in its container.
 chmod 600 hookshot/config.yml.active
 echo "  ✓ hookshot/config.yml.active"

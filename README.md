@@ -74,7 +74,7 @@ chmod +x setup.sh
 
 The script generates secrets, templates configs, opens firewall ports, and starts all 7 services.
 
-Hookshot starts with `GITHUB_APP_ID=REPLACE_ME` and will log GitHub auth errors until you complete [Hookshot: GitHub App](#hookshot-github-app) below. Everything else works in the meantime.
+Until you complete [Hookshot: GitHub App](#hookshot-github-app) below, `setup.sh` renders the bridge config **without** the GitHub block — hookshot exits on a missing private key, and a crash-looping bridge would take feeds and generic webhooks down with it. Re-run `./setup.sh` once the App exists and the block comes back automatically.
 
 ### Create your admin account
 
