@@ -38,6 +38,23 @@ matrix.thelocal.chat {
 		reverse_proxy livekit:7880
 	}
 
+	# Hookshot — GitHub webhooks, OAuth callback, generic webhooks
+	# Must precede the Synapse catch-all: handle blocks match in order.
+	# Safe from collision — Matrix only owns /_matrix/ and /.well-known/.
+	handle /github/* {
+		reverse_proxy hookshot:9000
+	}
+	handle /oauth* {
+		reverse_proxy hookshot:9000
+	}
+	handle /webhook/* {
+		reverse_proxy hookshot:9000
+	}
+	# Inert until the figma block in hookshot/config.yml is uncommented.
+	handle /figma/* {
+		reverse_proxy hookshot:9000
+	}
+
 	# Synapse client-server + federation API
 	# 120s timeouts needed for Element X sliding sync long-polling
 	handle {

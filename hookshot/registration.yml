@@ -1,0 +1,46 @@
+# ═══════════════════════════════════════════════════════════
+# The Local — matrix-hookshot appservice registration
+# DM-019/WORKS · thelocal.chat
+#
+# TEMPLATE — setup.sh generates hookshot/registration.yml.active
+#
+# Synapse mounts the .active file at /data/hookshot-registration.yaml
+# and loads it via app_service_config_files. Synapse REFUSES TO START
+# if that file is missing — always regenerate before restarting Synapse.
+#
+# Namespaces mirror upstream registration.sample.yml.
+# ═══════════════════════════════════════════════════════════
+
+id: matrix-hookshot
+
+as_token: "%%HOOKSHOT_AS_TOKEN%%"
+hs_token: "%%HOOKSHOT_HS_TOKEN%%"
+
+namespaces:
+  rooms: []
+  users:
+    - regex: "@_github_.*:thelocal.chat"
+      exclusive: true
+    - regex: "@_gitlab_.*:thelocal.chat"
+      exclusive: true
+    - regex: "@_jira_.*:thelocal.chat"
+      exclusive: true
+    - regex: "@_webhooks_.*:thelocal.chat"
+      exclusive: true
+    - regex: "@feeds:thelocal.chat"
+      exclusive: true
+  aliases:
+    - regex: "#github_.+:thelocal.chat"
+      exclusive: true
+
+sender_localpart: hookshot
+
+# Docker service name on the shared `thelocal` network.
+# Hookshot binds 0.0.0.0:9993 — no published host port needed.
+url: "http://hookshot:9993"
+
+# Bypasses the rc_message limits in homeserver.yaml, which would
+# otherwise throttle bursty CI notifications.
+rate_limited: false
+
+receive_ephemeral: true

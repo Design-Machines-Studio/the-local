@@ -15,7 +15,11 @@ thelocal.chat (Caddy — automatic TLS)
 ├── thelocal.chat            → Element Web + .well-known discovery
 ├── matrix.thelocal.chat     → Synapse API (port 8008)
 │   ├── /livekit/jwt/*       → JWT auth service (port 8080)
-│   └── /livekit/sfu/*       → LiveKit SFU WebSocket (port 7880)
+│   ├── /livekit/sfu/*       → LiveKit SFU WebSocket (port 7880)
+│   ├── /github/*            → Hookshot GitHub webhooks (port 9000)
+│   ├── /oauth               → Hookshot GitHub OAuth callback
+│   ├── /webhook/*           → Hookshot generic webhooks
+│   └── /figma/*             → Hookshot Figma webhooks (disabled)
 
 Direct (not proxied):
     7881/tcp                 → LiveKit TCP fallback
@@ -23,6 +27,7 @@ Direct (not proxied):
 
 Internal:
     Synapse → PostgreSQL (Docker network)
+    Synapse ↔ Hookshot (appservice, port 9993)
 ```
 
 ---
@@ -67,7 +72,9 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-The script generates secrets, templates configs, opens firewall ports, and starts all 6 services.
+The script generates secrets, templates configs, opens firewall ports, and starts all 7 services.
+
+Hookshot starts with `GITHUB_APP_ID=REPLACE_ME` and will log GitHub auth errors until you complete [Hookshot: GitHub App](#hookshot-github-app) below. Everything else works in the meantime.
 
 ### Create your admin account
 
@@ -136,6 +143,98 @@ Create accounts for other TACO members as needed.
 
 ---
 
+## Integrations (Hookshot)
+
+[matrix-hookshot](https://matrix-org.github.io/matrix-hookshot/latest/) bridges GitHub, RSS/Atom feeds, and generic webhooks into rooms. It is a Matrix **application service**, not a plain webhook receiver — it registers with Synapse via `hookshot/registration.yml.active`, mounted into Synapse at `/data/hookshot-registration.yaml`.
+
+**Synapse refuses to start if that file is missing.** Always run `./setup.sh` before restarting Synapse after a `git pull`.
+
+### Hookshot: GitHub App
+
+Create the App at <https://github.com/settings/apps/new>, under the `design-machines-studio` org so it can be installed on multiple repos.
+
+| Field | Value |
+|-------|-------|
+| Webhook URL | `https://matrix.thelocal.chat/github/webhook` |
+| Webhook secret | value of `GITHUB_WEBHOOK_SECRET` in `.env` |
+| Callback URL | `https://matrix.thelocal.chat/oauth` |
+
+The Callback URL must match `oauth.redirect_uri` in `hookshot/config.yml` **character for character** — no trailing slash.
+
+**Repository permissions:** Actions (read), Contents (read), Discussions (read & write), Issues (read & write), Metadata (read), Projects (read & write), Pull requests (read & write)
+
+**Organization permissions:** Team Discussions (read & write)
+
+**Subscribe to events:** commit comment, create, delete, discussion, discussion comment, issue comment, issues, project, project card, project column, pull request, pull request review, pull request review comment, push, release, repository, workflow run
+
+Then, on the droplet:
+
+```bash
+cd /opt/thelocal
+
+# App ID + OAuth credentials from the App's settings page
+nano .env    # set GITHUB_APP_ID, GITHUB_OAUTH_CLIENT_ID, GITHUB_OAUTH_CLIENT_SECRET
+
+# Private key: "Generate a private key" downloads a .pem — scp it up
+chmod 600 hookshot/github-key.pem
+
+./setup.sh
+docker compose up -d --force-recreate hookshot
+```
+
+Finally, **install** the App on the repos you want bridged.
+
+### Connecting a room
+
+Create `#dm-github:thelocal.chat`, invite `@hookshot:thelocal.chat`, then:
+
+```
+!hookshot github login                                    # OAuth, once per person
+!hookshot github repo design-machines-studio/the-local
+!hookshot feed https://example.com/feed.xml               # RSS/Atom
+!hookshot webhook assembly-governance                     # returns a generic webhook URL
+```
+
+Anyone on `thelocal.chat` can run commands; `@trav` has admin. Adjust in the `permissions` block of `hookshot/config.yml`.
+
+### Upgrading an existing install
+
+`setup.sh` skips secret generation entirely when `.env` exists, so an install that predates Hookshot needs these appended by hand before running it:
+
+```bash
+cd /opt/thelocal
+cat >> .env << EOF
+
+HOOKSHOT_AS_TOKEN=$(openssl rand -hex 32)
+HOOKSHOT_HS_TOKEN=$(openssl rand -hex 32)
+GITHUB_WEBHOOK_SECRET=$(openssl rand -hex 32)
+GITHUB_APP_ID=REPLACE_ME
+GITHUB_OAUTH_CLIENT_ID=REPLACE_ME
+GITHUB_OAUTH_CLIENT_SECRET=REPLACE_ME
+FIGMA_TEAM_ID=REPLACE_ME
+FIGMA_ACCESS_TOKEN=REPLACE_ME
+FIGMA_PASSCODE=REPLACE_ME
+EOF
+```
+
+`setup.sh` will abort with a clear message if the two Hookshot tokens are absent.
+
+### Figma
+
+Figma webhooks require a **paid Figma team plan**. The `figma:` block in `hookshot/config.yml` is commented out; on a Starter team, hookshot fails to register the webhook at startup. Uncomment it, fill the three `FIGMA_*` values in `.env`, and re-run `./setup.sh`. The `/figma/*` Caddy route is already in place.
+
+### Resource note
+
+Hookshot is a Node process, roughly 150-250MB resident. On the 2GB droplet, check after deploy:
+
+```bash
+docker stats --no-stream
+```
+
+If total RAM sits above 80%, resize the droplet.
+
+---
+
 ## Management
 
 ```bash
@@ -154,15 +253,10 @@ docker compose pull && docker compose up -d
 
 # Pull config changes from GitHub
 git pull
-# If templates changed, re-generate active configs:
-source .env
-sed -e "s|%%POSTGRES_PASSWORD%%|${POSTGRES_PASSWORD}|g" \
-    -e "s|%%REGISTRATION_SECRET%%|${REGISTRATION_SECRET}|g" \
-    -e "s|%%MACAROON_SECRET%%|${MACAROON_SECRET}|g" \
-    -e "s|%%FORM_SECRET%%|${FORM_SECRET}|g" \
-    -e "s|%%RESEND_API_KEY%%|${RESEND_API_KEY}|g" \
-    homeserver.yaml > homeserver.yaml.active
-docker compose restart synapse
+# Re-generate all active configs (idempotent — reuses existing .env):
+./setup.sh
+# git pull swaps inodes; Docker bind mounts track inodes, not names:
+docker compose up -d --force-recreate synapse caddy hookshot element
 
 # Backup PostgreSQL
 docker compose exec postgres pg_dump -U synapse synapse > backup-$(date +%Y%m%d).sql
@@ -182,13 +276,18 @@ docker compose exec synapse register_new_matrix_user \
 
 | File | Purpose | Git? |
 |------|---------|------|
-| `docker-compose.yml` | All 6 services | ✅ |
+| `docker-compose.yml` | All 7 services | ✅ |
 | `Caddyfile` | Reverse proxy + TLS | ✅ |
 | `homeserver.yaml` | Synapse config (template) | ✅ |
 | `homeserver.yaml.active` | Synapse config (with secrets) | ❌ |
 | `element-config.json` | Element Web config | ✅ |
 | `livekit/livekit.yaml` | LiveKit config (template) | ✅ |
 | `livekit/livekit.yaml.active` | LiveKit config (with secrets) | ❌ |
+| `hookshot/config.yml` | Hookshot bridge config (template) | ✅ |
+| `hookshot/registration.yml` | Hookshot appservice registration (template) | ✅ |
+| `hookshot/*.active` | Hookshot configs (with secrets) | ❌ |
+| `hookshot/passkey.pem` | Encrypts stored OAuth tokens | ❌ |
+| `hookshot/github-key.pem` | GitHub App private key | ❌ |
 | `well-known/matrix/server` | Federation delegation | ✅ |
 | `well-known/matrix/client` | Client discovery + LiveKit | ✅ |
 | `thelocal.chat.log.config` | Logging config | ✅ |

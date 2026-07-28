@@ -59,6 +59,13 @@ enable_registration: true
 registration_requires_token: true
 registration_shared_secret: "%%REGISTRATION_SECRET%%"
 
+# ─── Application services ────────────────────────────────
+# matrix-hookshot (GitHub, RSS feeds, generic webhooks).
+# Synapse REFUSES TO START if this file is missing — always
+# generate hookshot/registration.yml.active before restarting.
+app_service_config_files:
+  - /data/hookshot-registration.yaml
+
 # ─── Security ────────────────────────────────────────────
 macaroon_secret_key: "%%MACAROON_SECRET%%"
 form_secret: "%%FORM_SECRET%%"

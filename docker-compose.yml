@@ -9,6 +9,7 @@
 #   element   — Element Web client
 #   livekit   — SFU for video/voice calls
 #   jwt       — LiveKit JWT auth service
+#   hookshot  — GitHub / RSS / generic webhook bridge
 # ═══════════════════════════════════════════════════════════
 
 services:
@@ -29,6 +30,7 @@ services:
       - synapse
       - element
       - jwt
+      - hookshot
     networks:
       - thelocal
 
@@ -43,6 +45,8 @@ services:
       - ./homeserver.yaml.active:/data/homeserver.yaml:ro
       - ./thelocal.chat.log.config:/data/thelocal.chat.log.config:ro
       - ./templates:/data/templates:ro
+      # Appservice registration. Synapse won't start if this is missing.
+      - ./hookshot/registration.yml.active:/data/hookshot-registration.yaml:ro
     depends_on:
       postgres:
         condition: service_healthy
@@ -102,6 +106,25 @@ services:
       - LIVEKIT_KEY=${LIVEKIT_KEY}
       - LIVEKIT_SECRET=${LIVEKIT_SECRET}
       - LIVEKIT_FULL_ACCESS_HOMESERVERS=thelocal.chat
+    networks:
+      - thelocal
+
+  # ─── Hookshot (GitHub / RSS / generic webhooks) ────────
+  # Matrix application service. Reaches Synapse and is reached by
+  # Caddy over the internal network — no published host ports.
+  # Whole dir mounted read-write (matches upstream /data layout);
+  # hookshot needs somewhere to persist feed state.
+  hookshot:
+    image: ghcr.io/matrix-org/matrix-hookshot:latest
+    restart: unless-stopped
+    volumes:
+      - ./hookshot:/data
+      # Shadow the committed templates with the generated files at the
+      # names hookshot expects (/data/config.yml, /data/registration.yml).
+      - ./hookshot/config.yml.active:/data/config.yml:ro
+      - ./hookshot/registration.yml.active:/data/registration.yml:ro
+    depends_on:
+      - synapse
     networks:
       - thelocal
 

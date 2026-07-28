@@ -2,6 +2,8 @@
 .env
 homeserver.yaml.active
 livekit/livekit.yaml.active
+hookshot/*.active
+hookshot/*.pem
 
 # Backups
 *.sql

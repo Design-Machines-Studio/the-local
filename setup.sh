@@ -37,6 +37,9 @@ else
   FORM_SECRET=$(openssl rand -hex 32)
   LIVEKIT_KEY="thelocal$(openssl rand -hex 4)"
   LIVEKIT_SECRET=$(openssl rand -hex 32)
+  HOOKSHOT_AS_TOKEN=$(openssl rand -hex 32)
+  HOOKSHOT_HS_TOKEN=$(openssl rand -hex 32)
+  GITHUB_WEBHOOK_SECRET=$(openssl rand -hex 32)
 
   cat > .env << EOF
 # The Local — Secrets
@@ -50,8 +53,24 @@ FORM_SECRET=${FORM_SECRET}
 LIVEKIT_KEY=${LIVEKIT_KEY}
 LIVEKIT_SECRET=${LIVEKIT_SECRET}
 
+# Hookshot appservice tokens (shared with Synapse)
+HOOKSHOT_AS_TOKEN=${HOOKSHOT_AS_TOKEN}
+HOOKSHOT_HS_TOKEN=${HOOKSHOT_HS_TOKEN}
+
 # Email (Resend SMTP) — add your API key from https://resend.com/api-keys
 RESEND_API_KEY=REPLACE_ME
+
+# GitHub App (Hookshot) — see README "Hookshot: GitHub App"
+# Paste GITHUB_WEBHOOK_SECRET into the App's webhook secret field.
+GITHUB_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET}
+GITHUB_APP_ID=REPLACE_ME
+GITHUB_OAUTH_CLIENT_ID=REPLACE_ME
+GITHUB_OAUTH_CLIENT_SECRET=REPLACE_ME
+
+# Figma (Hookshot) — requires a PAID Figma team plan
+FIGMA_TEAM_ID=REPLACE_ME
+FIGMA_ACCESS_TOKEN=REPLACE_ME
+FIGMA_PASSCODE=REPLACE_ME
 EOF
 
   chmod 600 .env
@@ -84,6 +103,38 @@ sed \
   livekit/livekit.yaml > livekit/livekit.yaml.active
 chmod 644 livekit/livekit.yaml.active
 echo "  ✓ livekit/livekit.yaml.active"
+
+# Hookshot token encryption key (generated once, never rotated
+# without invalidating every stored GitHub OAuth token)
+if [ ! -f "hookshot/passkey.pem" ]; then
+  openssl genpkey -out hookshot/passkey.pem -outform PEM \
+    -algorithm RSA -pkeyopt rsa_keygen_bits:4096 2>/dev/null
+  chmod 600 hookshot/passkey.pem
+  echo "  ✓ hookshot/passkey.pem (generated)"
+fi
+
+# Hookshot bridge config
+sed \
+  -e "s|%%GITHUB_APP_ID%%|${GITHUB_APP_ID:-REPLACE_ME}|g" \
+  -e "s|%%GITHUB_WEBHOOK_SECRET%%|${GITHUB_WEBHOOK_SECRET:-REPLACE_ME}|g" \
+  -e "s|%%GITHUB_OAUTH_CLIENT_ID%%|${GITHUB_OAUTH_CLIENT_ID:-REPLACE_ME}|g" \
+  -e "s|%%GITHUB_OAUTH_CLIENT_SECRET%%|${GITHUB_OAUTH_CLIENT_SECRET:-REPLACE_ME}|g" \
+  -e "s|%%FIGMA_TEAM_ID%%|${FIGMA_TEAM_ID:-REPLACE_ME}|g" \
+  -e "s|%%FIGMA_ACCESS_TOKEN%%|${FIGMA_ACCESS_TOKEN:-REPLACE_ME}|g" \
+  -e "s|%%FIGMA_PASSCODE%%|${FIGMA_PASSCODE:-REPLACE_ME}|g" \
+  hookshot/config.yml > hookshot/config.yml.active
+# 600: read only by hookshot, which runs as root in its container.
+chmod 600 hookshot/config.yml.active
+echo "  ✓ hookshot/config.yml.active"
+
+# Hookshot appservice registration (Synapse won't start without it)
+sed \
+  -e "s|%%HOOKSHOT_AS_TOKEN%%|${HOOKSHOT_AS_TOKEN:?not set in .env — see README 'Upgrading an existing install'}|g" \
+  -e "s|%%HOOKSHOT_HS_TOKEN%%|${HOOKSHOT_HS_TOKEN:?not set in .env — see README 'Upgrading an existing install'}|g" \
+  hookshot/registration.yml > hookshot/registration.yml.active
+# 644, not 600: read by BOTH hookshot (root) and Synapse (uid 991).
+chmod 644 hookshot/registration.yml.active
+echo "  ✓ hookshot/registration.yml.active"
 
 # ─── Step 3: Signing key ────────────────────────────────
 echo ""
@@ -159,6 +210,12 @@ echo "    -c /data/homeserver.yaml \\"
 echo "    http://localhost:8008"
 echo ""
 echo "  Then log in at https://thelocal.chat"
+echo ""
+echo "  ─── Hookshot (GitHub / RSS / webhooks) ────────"
+echo ""
+echo "  Hookshot is running but GitHub is not configured yet."
+echo "  It will log auth errors until you create the GitHub App."
+echo "  See README: 'Hookshot: GitHub App'"
 echo ""
 echo "  ─── Ports to verify ───────────────────────────"
 echo ""
