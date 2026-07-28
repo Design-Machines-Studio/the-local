@@ -192,12 +192,25 @@ Finally, **install** the App on the repos you want bridged.
 
 Create `#dm-github:thelocal.chat`, invite `@hookshot:thelocal.chat`, then:
 
+**In a DM with the bot** (the "admin room") commands take **no prefix**:
+
 ```
-!hookshot github login                                    # OAuth, once per person
-!hookshot github repo design-machines-studio/the-local
-!hookshot feed https://example.com/feed.xml               # RSS/Atom
-!hookshot webhook assembly-governance                     # returns a generic webhook URL
+github login          # OAuth, once per person
+help
 ```
+
+**In the room you want bridged**, commands take the `!hookshot` prefix:
+
+```
+!hookshot github repo https://github.com/design-machines-studio/the-local
+!hookshot feed https://example.com/feed.xml       # RSS/Atom
+!hookshot webhook assembly-governance             # returns a generic webhook URL
+```
+
+Two things that bite:
+
+- `github repo` requires a **full URL**. The parser is `^https://github\.com/([\w.-]+)/([\w.-]+)$` — a bare `org/repo`, a `.git` suffix, or a trailing slash all fail with "The GitHub url you entered was not valid."
+- The bot needs **Moderator or Admin** power in the room before it can create a connection, since it writes room state. Otherwise: "I do not have permission to set up a bridge in this room."
 
 Anyone on `thelocal.chat` can run commands; `@trav` has admin. Adjust in the `permissions` block of `hookshot/config.yml`.
 
