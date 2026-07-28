@@ -167,7 +167,9 @@ The Callback URL must match `oauth.redirect_uri` in `hookshot/config.yml` **char
 
 Hookshot's upstream docs ask for Team Discussions (read & write). GitHub [retired Team Discussions](https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/) in favour of Organization Discussions, so that permission no longer appears on the App form. Skip it. The Repository-level "Discussions" permission above is a different thing and is still required.
 
-**Subscribe to events:** commit comment, create, delete, discussion, discussion comment, issue comment, issues, project, project card, project column, pull request, pull request review, pull request review comment, push, release, repository, workflow run
+**Subscribe to events:** commit comment, create, delete, discussion, discussion comment, issue comment, issues, pull request, pull request review, pull request review comment, push, release, repository, workflow run
+
+Hookshot's upstream docs also list `project`, `project card`, and `project column`. Those are Projects (classic) events, and GitHub [sunset Projects classic](https://github.blog/changelog/2024-05-23-sunset-notice-projects-classic/) on 23 August 2024, so they no longer appear on the form. Do not substitute the Projects v2 events — hookshot's project connectors were written against classic and will not consume them.
 
 Then, on the droplet:
 
